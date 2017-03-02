@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import simone.it.jsontestapp.ImageDownloaderTask;
 import simone.it.jsontestapp.Models.Student;
 import simone.it.jsontestapp.R;
 
@@ -32,9 +34,10 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     @Override
     public void onBindViewHolder(StudentsAdapter.StudentViewHolder holder, int position) {
         Student currentStudent = dataSet.get(position);
-        holder.studentNameTV.setText(currentStudent.getName());
+        holder.studentNameTV.setText(currentStudent.getNome());
         holder.studentEmailTV.setText(currentStudent.getEmail());
-        holder.studentCourseTV.setText(currentStudent.getCourse().getCourseName());
+        new ImageDownloaderTask(holder.btn_image).execute(currentStudent.getImageUrl());
+        //holder.studentCourseTV.setText(currentStudent.getCourse().getCourseName());
     }
 
     @Override
@@ -51,14 +54,17 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         public TextView studentNameTV;
         public TextView studentEmailTV;
         public ImageButton btn_github;
-        public TextView studentCourseTV;
+        //public TextView studentCourseTV;
+        public ImageView btn_image;
 
         public StudentViewHolder(View itemView) {
             super(itemView);
             studentNameTV = (TextView) itemView.findViewById(R.id.student_nameTV);
             studentEmailTV = (TextView) itemView.findViewById(R.id.student_emailTV);
-            studentCourseTV = (TextView) itemView.findViewById(R.id.student_courseTV);
+            //studentCourseTV = (TextView) itemView.findViewById(R.id.student_courseTV);
             btn_github = (ImageButton) itemView.findViewById(R.id.btn_github);
+            btn_image = (ImageView) itemView.findViewById(R.id.imgProfile);
+
             btn_github.setOnClickListener(this);
         }
 

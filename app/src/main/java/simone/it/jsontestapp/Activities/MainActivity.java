@@ -1,9 +1,12 @@
 package simone.it.jsontestapp.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,59 +25,27 @@ import simone.it.jsontestapp.Adapters.StudentsAdapter;
 import simone.it.jsontestapp.Models.Student;
 import simone.it.jsontestapp.R;
 
-public class MainActivity extends AppCompatActivity {
-    RecyclerView studentsRv;
-    LinearLayoutManager layoutManager;
-    StudentsAdapter adapter;
-
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    public Button btnStudents;
+    public Button btnPlaces;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        studentsRv = (RecyclerView) findViewById(R.id.students_RV);
-        layoutManager = new LinearLayoutManager(this);
-        adapter = new  StudentsAdapter();
-        studentsRv.setLayoutManager(layoutManager);
-        studentsRv.setAdapter(adapter);
-        fetchStudentsFromJSON();
+
+        btnStudents = (Button)findViewById(R.id.btnStudents);
+        btnPlaces = (Button) findViewById(R.id.btnPlaces);
+        btnPlaces.setOnClickListener(this);
+        btnStudents.setOnClickListener(this);
     }
 
-    private void fetchStudentsFromJSON() {
-        ArrayList<Student> students = new ArrayList<>();
-        try {
-            JSONObject object = new JSONObject(readLocalJson());
-            JSONArray studentsJsonArray = object.getJSONArray("students");
-            for (int i = 0; i < studentsJsonArray.length(); i++) {
-                JSONObject jsonStudent = studentsJsonArray.getJSONObject(i);
-                students.add(new Student(jsonStudent));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnStudents) {
+            startActivity(new Intent(this,StudentActivity.class));
         }
-
-
-        // add dataset to adapter
-        adapter.setDataSet(students);
-
-    }
-
-
-    private String readLocalJson() {
-
-        Writer writer = new StringWriter();
-        char[] buffer = new char[1024];
-        try (InputStream is = getResources().openRawResource(R.raw.students_v2)) {
-            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            int n;
-            while ((n = reader.read(buffer)) != -1) {
-                writer.write(buffer, 0, n);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        else if (v.getId() == R.id.btnPlaces){
+            startActivity(new Intent(this,PlacesActivity.class));
         }
-
-        return writer.toString();
     }
 }

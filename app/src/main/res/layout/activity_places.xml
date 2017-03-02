@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_places"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+    <EditText
+        android:paddingStart="5dp"
+        android:layout_width="match_parent"
+        android:id="@+id/searchCity_ET"
+        android:layout_height="wrap_content"
+        android:hint="Search City"
+        android:background="@color/colorPrimary"
+        android:textColorHint="@color/cardview_light_background"
+        android:textColor="@color/cardview_light_background"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+
+        <EditText
+            android:paddingStart="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:id="@+id/searchPlace_ET"
+            android:layout_height="wrap_content"
+            android:hint="Search Place"
+            android:textColorHint="@color/cardview_light_background"
+            android:textColor="@color/cardview_light_background"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="SEARCH"
+            android:id="@+id/btn_searhPlaces"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:textColor="@color/cardview_light_background"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/search_rv"
+            android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/loading"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</LinearLayout>
